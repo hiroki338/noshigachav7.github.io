@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lottery Smart Contract</title>
+
+</head>
+<body>
+<h1>Noshi Gacha</h1>
+<button onclick="connect()">connectWallet</button>
+<div>
+    <h2>Enter Lottery</h2>
+    <label for="address">Enter your Ethereum address:</label>
+    <input type="text" id="address" placeholder="0x..." />
+    <button onclick="enterLottery()">Enter Lottery</button>
+    <p>Cost to enter: 0.01 ETH</p>
+
+</div>
+<div>
+    <h2>Pick a Winner (Only Manager)</h2>
+    <button onclick="pickWinner()">Pick Winner</button>
+</div>
+<div>
+    <h2>Participants</h2>
+    <ul id="participantsList"></ul>
+</div>
+
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
