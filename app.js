@@ -122,13 +122,13 @@ let contract = null;
 
 
 async function refreshParticipants() {
-    const participantsElement = document.getElementById('participantsList');
+    const participantsElement = document.querySelector('participantsList');
     const participants = await lotteryContract.getParticipants();
     participantsElement.innerHTML = participants.map(p => `<li>${p}</li>`).join('');
 }
 
 async function refreshAccounts() {
-    const accountsElement = document.getElementById('accounts');
+    const accountsElement = document.querySelector('accounts');
     let accounts = await provider.listAccounts();
     accounts = accounts.slice(0,8);
     accounts = accounts.map(x => [x, 0]);
@@ -141,16 +141,31 @@ async function refreshAccounts() {
     accountsElement.innerHTML = accounts.map((obj,idx) => `<tr><td>Number ${idx+1}</td><td>${obj[0]}</td><td>${obj[1]} ETH</td></tr>`).join('');
 }
 
-async function connect() {
+/*
+ // add event listener to edit btn
+            li.querySelector(".edit-btn").addEventListener('click', function() {
+                // alert("Hi " + todo.name)
+                const newName = prompt("Enter the new task name:", todo.name)
+                const newUrgency = prompt("Enter the new urgency: ", todo.urgency)
+                // console.log(newName, newUrgency)
+                modifyTask(todos, todo.id, newName, newUrgency)
+                renderTodos(todos)
+            }) 
+*/
+// add event listener for click to connect 
+
+
+document.querySelector("connect").addEventListener('click',
+async function() {
     if (window.ethereum) {
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
             walletAddress = (await window.ethereum.request({ method: 'eth_accounts' }))[0];
-            document.getElementById('connectWallet').innerText = 'Connected';
+            document.querySelector('connectWallet').innerText = 'Connected';
             if (accounts && accounts.length > 0) {
                 const truncatedAddress = `${accounts[0].slice(0, 5)}...${accounts[0].slice(-5)}`;
-                document.getElementById('connectWallet').innerText = `Connected (${truncatedAddress})`;
-                document.getElementById('connectWallet').disabled = true;
+                document.querySelector('connectWallet').innerText = `Connected (${truncatedAddress})`;
+                document.querySelector('connectWallet').disabled = true;
             }
             //provider = new ethers.providers.Web3Provider(window.ethereum);
             provider = new ethers.getDefaultProvider(network)
@@ -162,15 +177,16 @@ async function connect() {
         } 
         catch (error) {
             console.error(error);
-            document.getElementById('connectWallet').innerText = 'Wallet Connection Failed';
+            document.querySelector('connectWallet').innerText = 'Wallet Connection Failed';
         }
     } else {
         alert('MetaMask extension not detected. Please install MetaMask and try again.');
     }
-}
+})
 
-async function enterLottery() {
-    const addressInput = document.getElementById('address');
+document.querySelector("enterLottery").addEventListener('click',
+async function enter() {
+    const addressInput = document.querySelector('address');
     const userAddress = addressInput.value;
 
     try {
@@ -188,8 +204,9 @@ async function enterLottery() {
     } catch (error) {
         alert('Error entering lottery:', error.message);
     }
-}
+})
 
+document.querySelector("pickwinner").addEventListener('click',
 async function pickWinner() {
     try {
         const tx = await lotteryContract.pickWinner();
@@ -205,7 +222,7 @@ async function pickWinner() {
         console.log(error)
         alert('Error picking winner:', error);
     }
-}
+})
 
 refreshParticipants();
 refreshAccounts();

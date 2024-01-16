@@ -5,19 +5,55 @@
 </head>
 <body>
 <h1>Noshi Gacha</h1>
-<button onclick="connect()">connectWallet</button>
+<button id="connect">connectWallet</button>
 <div>
     <h2>Enter Lottery</h2>
     <label for="address">Enter your Ethereum address:</label>
     <input type="text" id="address" placeholder="0x..." />
-    <button onclick="enterLottery()">Enter Lottery</button>
+    <button id="enterLottery">Enter Lottery</button>
     <p>Cost to enter: 0.01 ETH</p>
 
 </div>
 <div>
     <h2>Pick a Winner (Only Manager)</h2>
-    <button onclick="pickWinner()">Pick Winner</button>
+    <button id="pickwinner">Pick Winner</button>
 </div>
+<!-- 
+
+    <div>
+            <button id="addTodo" type="button" class="btn btn-success">Add</button>
+        </div>
+
+    function renderTodos(todos) {
+        const todoList = document.querySelector("#todoList");
+        // clearing old todo list
+        todoList.innerHTML = '';
+        for (let todo of todos) {
+
+            // loop through todos and create li element with todo details
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+            li.innerHTML = `
+                    ${todo.name} <span class="badge bg-primary">${todo.urgency}</span>
+                    <button class='btn btn-warning edit-btn'>Edit</button>               
+                `;
+            todoList.appendChild(li);
+
+            // add event listener to edit btn
+            li.querySelector(".edit-btn").addEventListener('click', function() {
+                // alert("Hi " + todo.name)
+                const newName = prompt("Enter the new task name:", todo.name)
+                const newUrgency = prompt("Enter the new urgency: ", todo.urgency)
+                // console.log(newName, newUrgency)
+                modifyTask(todos, todo.id, newName, newUrgency)
+                renderTodos(todos)
+            })
+
+
+        }
+-->
+
+*/
 <div>
     <h2>Participants</h2>
     <ul id="participantsList"></ul>
